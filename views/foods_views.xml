@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_foodwiki_tree" model="ir.ui.view">
+        <field name="name">food.wiki.form</field>
+        <field name="model">food.wiki</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="foodprice"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_foodwiki_form" model="ir.ui.view">
+        <field name="name">food.wiki.form</field>
+        <field name="model">food.wiki</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Test Button" type="object" name="test_button_obj" class="btn btn-danger"/>
+                </header>
+                <sheet>
+                    <group string="Food Info">
+                        <field name="name" required="True"/>
+                        <field name="code"/>
+                    </group>
+                    <group>
+                        <field name="foodprice"/>
+                        <field name="scode"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_foodwiki_addon" model="ir.actions.act_window">
+        <field name="name">Favourite Foods</field>
+        <field name="res_model">food.wiki</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+            id="menu_foodwiki_owner"
+            action="action_foodwiki_addon"
+            name="Favourite Foods"
+            parent="menu_techwiki_addon_main"
+            sequence="4"/>
+
+</odoo>

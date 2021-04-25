@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_ownerwiki_tree" model="ir.ui.view">
+        <field name="name">owner.wiki.tree</field>
+        <field name="model">owner.wiki</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ownerwiki_search" model="ir.ui.view">
+        <field name="name">owner.wiki.search</field>
+        <field name="model">owner.wiki</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="fname"/>
+                <field name="lname"/>
+                <field name="age"/>
+                <field name="teenage"/>
+
+                <!-- Adding filter -->
+                <filter string='Under 30' name='ageunderthirty' domain="[('age','&lt;',30)]" />
+                <separator/>
+                <filter string='Over 30' name='ageoverthirty' domain="[('age','&gt;',30)]" />
+
+            </search>
+        </field>
+    </record>
+
+    <record id="view_ownerwiki_form" model="ir.ui.view">
+        <field name="name">owner.wiki.form</field>
+        <field name="model">owner.wiki</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="fname" required="True" help='This is your first name'/>
+                            <field name="lname" required="True"/>
+                            <field name="name"/>
+                            <field name="test"/>
+                            <field name="age"/>
+                            <field name="infosaved"/>
+                        </group>
+                        <group>
+                            <field name="img" widget="image" class="oe_avatar"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="CEO of">
+                            <group>
+                                <field name="company_id"/>
+                            </group>
+                        </page>
+                        <page string="Owner Info">
+                            <group string="Info">
+                                <field name="teenage"/>
+                                <field name="food_id" widget="many2many_tags"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ownerwiki_addon" model="ir.actions.act_window">
+        <field name="name">Owner Info</field>
+        <field name="res_model">owner.wiki</field>
+        <field name="view_mode">tree,form</field>
+        <field name='context'>
+            {
+                'default_age':35,
+                'search_default_ageunderthirty': 1,
+            }
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_ownerwiki_company"
+            action="action_ownerwiki_addon"
+            name="Owner Info"
+            parent="menu_techwiki_addon_main"
+            sequence="3"/>
+
+</odoo>

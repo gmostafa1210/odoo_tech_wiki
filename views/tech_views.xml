@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <record id="view_techwiki_tree" model="ir.ui.view">
+        <field name="name">tech.wiki.form</field>
+        <field name="model">tech.wiki</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_techwiki_form" model="ir.ui.view">
+        <field name="name">tech.wiki.form</field>
+        <field name="model">tech.wiki</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="True"/>
+                            <field name="foundation"/>
+                            <field name="country"/>
+                            <field name="owner_id"/>
+                        </group>
+                        <group>
+                            <field name="have_address"/>
+                            <field name="address" attrs="{'invisible': [('have_address','=',False)]}"/>
+                            <field name="logo" widget="image" class="oe_avatar"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_techwiki_search" model="ir.ui.view">
+        <field name="name">tech.wiki.search</field>
+        <field name="model">tech.wiki</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="foundation"/>
+                <field name="country"/>
+                <field name="owner_id"/>
+                <field name="address"/>
+
+
+                <!-- Group By -->
+                <filter string='Owner Name' name='groupbyowner' context="{'group_by':'owner_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_techwiki_addon" model="ir.actions.act_window">
+        <field name="name">TechWiki</field>
+        <field name="res_model">tech.wiki</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem 
+            id="menu_techwiki_addon_main" 
+            name="TechWikipedia"/>
+
+    <menuitem 
+            id="menu_techwiki_addon" 
+            action="action_techwiki_addon" 
+            name="Company Info"
+            parent="menu_techwiki_addon_main"
+            sequence="2"/>
+
+</odoo>
